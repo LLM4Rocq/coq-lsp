@@ -13,6 +13,16 @@ module HType = struct
         { uri_fn : 'p -> LUri.File.t
         ; handler : token:Coq.Limits.Token.t -> doc:Fleche.Doc.t -> 'p -> 'r R.t
         }
+    | PosInDoc of
+        { uri_fn : 'p -> LUri.File.t
+        ; pos_fn : 'p -> int * int
+        ; handler :
+             token:Coq.Limits.Token.t
+          -> doc:Fleche.Doc.t
+          -> point:int*int
+          -> 'p
+          -> 'r R.t
+        }
 end
 
 module type Handler = sig
@@ -74,11 +84,12 @@ module GetStateAtPos = struct
     end
 
     let handler =
-      HType.FullDoc
+      HType.PosInDoc
         { uri_fn = (fun { Params.uri ; _ } -> uri)
+        ; pos_fn = (fun { Params.row ; col ; _ } -> (row, col))
         ; handler =
-          (fun ~token:_ ~doc { Params.uri = _ ; opts ; row ; col } ->
-            Agent.get_state_at_pos ~doc ?opts ~pos:(row, col) ())
+          (fun ~token:_ ~doc ~point { Params.uri = _ ; opts ; row = _ ; col = _ } ->
+            Agent.get_state_at_pos ?opts ~doc ~point ())
         }
   end
 end

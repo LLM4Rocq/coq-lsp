@@ -162,7 +162,7 @@ let default_opts = function
   | None -> { Run_opts.memo = true; hash = true }
   | Some opts -> opts
 
-let get_state_at_pos ~doc ?opts ~pos () =
+let get_state_at_pos ?opts ~doc ~point () =
   let pos_of_point pt = (pt.Lang.Point.line, pt.character) in
   let pos_of_range r = (pos_of_point r.Lang.Range.start, pos_of_point r.end_) in
   let state_of_node node =
@@ -172,7 +172,7 @@ let get_state_at_pos ~doc ?opts ~pos () =
   let sorting (_, (_, end1)) (_, (_, end2)) = compare end2 end1 in
   let states =
     (doc.root, ((0, 0), (0, 0))) :: states
-    |> List.filter (keep pos)
+    |> List.filter (keep point)
     |> List.sort sorting
   in
   let state = List.hd states |> fst in

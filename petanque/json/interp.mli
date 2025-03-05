@@ -16,6 +16,15 @@ module Action : sig
         ; handler :
             token:Coq.Limits.Token.t -> doc:Fleche.Doc.t -> Yojson.Safe.t r
         }
+    | Pos of
+        { uri : Lang.LUri.File.t
+        ; point : int * int
+        ; handler :
+             token:Coq.Limits.Token.t
+          -> doc:Fleche.Doc.t
+          -> point:int*int
+          -> Yojson.Safe.t r
+        }
 end
 
 type 'a handle = token:Coq.Limits.Token.t -> Action.t -> 'a

@@ -14,6 +14,10 @@ let do_handle ~fn ~token action =
     let open Coq.Compat.Result.O in
     let* doc = fn ~token ~uri |> of_pet_err in
     handler ~token ~doc
+  | Action.Pos { uri; point; handler } ->
+    let open Coq.Compat.Result.O in
+    let* doc = fn ~token ~uri |> of_pet_err in
+    handler ~token ~doc ~point
 
 let request ~fn ~token ~id ~method_ ~params =
   let unhandled ~token ~method_ =

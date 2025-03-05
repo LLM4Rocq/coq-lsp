@@ -19,6 +19,15 @@ module Action = struct
         ; handler :
             token:Coq.Limits.Token.t -> doc:Fleche.Doc.t -> Yojson.Safe.t r
         }
+    | Pos of
+        { uri : Lang.LUri.File.t
+        ; point : int * int
+        ; handler :
+             token:Coq.Limits.Token.t
+          -> doc:Fleche.Doc.t
+          -> point:int*int
+          -> Yojson.Safe.t r
+        }
 end
 (* End of controller/request.ml *)
 
@@ -41,6 +50,12 @@ let do_request (module R : Protocol.Request.S) ~params =
       let uri = uri_fn params in
       let handler ~token ~doc = handler ~token ~doc params |> of_pet in
       Action.Doc { uri; handler }
+    | PosInDoc { uri_fn; pos_fn; handler } ->
+      let uri = uri_fn params in
+      let point = pos_fn params in
+      let handler ~token ~doc ~point =
+        handler ~token ~doc ~point params |> of_pet in
+      Action.Pos { uri; point; handler }
   in
   match R.Handler.Params.of_yojson (`Assoc params) with
   | Ok params -> handler params

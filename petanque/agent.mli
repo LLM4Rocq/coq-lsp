@@ -99,11 +99,12 @@ end
     We could imagine a future where [State.t] need to be managed asynchronously,
     then the same approach that we use for [Doc.t] could happen. *)
 
-(** [get_state_at_pos ~doc ?opts ~pos] return the state at position [pos]. *)
+(** [get_state_at_pos ?opts ~doc ~point] return the state at position [point]
+    in [doc]. *)
 val get_state_at_pos :
-     doc:Fleche.Doc.t
-  -> ?opts:Run_opts.t
-  -> pos:(int * int)
+     ?opts:Run_opts.t
+  -> doc:Fleche.Doc.t
+  -> point:int*int
   -> unit
   -> State.t Run_result.t R.t
 

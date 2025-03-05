@@ -180,8 +180,9 @@ let get_state_at_pos ?opts ~doc ~point () =
   let hash = opts.hash in
   Ok (analyze_after_run ~hash state)
 
-let get_root_state ?hash ~doc () =
-  let hash = Option.default true hash in
+let get_root_state ?opts ~doc () =
+  let opts = default_opts opts in
+  let hash = opts.hash in
   let state = doc.Fleche.Doc.root in
   Ok (analyze_after_run ~hash state)
 

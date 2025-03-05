@@ -108,9 +108,9 @@ val get_state_at_pos :
   -> unit
   -> State.t Run_result.t R.t
 
-(** [get_root_state ?hash ~doc] return the root state of the document [doc]. *)
+(** [get_root_state ?opts ~doc] return the root state of the document [doc]. *)
 val get_root_state :
-     ?hash:bool
+     ?opts:Run_opts.t
   -> doc:Fleche.Doc.t
   -> unit
   -> State.t Run_result.t R.t

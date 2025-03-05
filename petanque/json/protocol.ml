@@ -86,9 +86,9 @@ module GetStateAtPos = struct
     let handler =
       HType.PosInDoc
         { uri_fn = (fun { Params.uri ; _ } -> uri)
-        ; pos_fn = (fun { Params.row ; col ; _ } -> (row, col))
+        ; pos_fn = (fun { row ; col ; _ } -> (row, col))
         ; handler =
-          (fun ~token:_ ~doc ~point { Params.uri = _ ; opts ; row = _ ; col = _ } ->
+          (fun ~token:_ ~doc ~point { uri = _ ; opts ; row = _ ; col = _ } ->
             Agent.get_state_at_pos ?opts ~doc ~point ())
         }
   end
@@ -100,7 +100,7 @@ module GetRootState = struct
 
   module Params = struct
     type t =
-      { hash : bool option [@default None]
+      { opts : Run_opts.t option [@default None]
       ; uri : Lsp.JLang.LUri.File.t
       }
       [@@deriving yojson]
@@ -121,8 +121,8 @@ module GetRootState = struct
       HType.FullDoc
         { uri_fn = (fun { Params.uri ; _ } -> uri)
         ; handler =
-          (fun ~token:_ ~doc { hash ; Params.uri = _ } ->
-            Agent.get_root_state ?hash ~doc ())
+          (fun ~token:_ ~doc { opts ; uri = _ } ->
+            Agent.get_root_state ?opts ~doc ())
         }
   end
 end

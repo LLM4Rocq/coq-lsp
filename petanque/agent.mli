@@ -107,6 +107,13 @@ val get_state :
   -> unit
   -> State.t Run_result.t R.t
 
+(** [get_root_state ?hash ~doc] return the root state of the document [doc]. *)
+val get_root_state :
+     ?hash:bool
+  -> doc:Fleche.Doc.t
+  -> unit
+  -> State.t Run_result.t R.t
+
 (** [start ~token ~doc ~pre_commands ~thm] start a new proof for theorem [thm]
     in file [uri] under [fn]. [token] can be used to interrupt the computation.
     Returns the proof state or error otherwise. [pre_commands] is a string of

@@ -83,6 +83,39 @@ module GetState = struct
   end
 end
 
+(* get_root_state RPC *)
+module GetRootState = struct
+  let method_ = "petanque/get_root_state"
+
+  module Params = struct
+    type t =
+      { hash : bool option [@default None]
+      ; uri : Lsp.JLang.LUri.File.t
+      }
+      [@@deriving yojson]
+  end
+
+  module Response = struct
+    type t = int Run_result.t [@@deriving yojson]
+  end
+
+  module Handler = struct
+    module Params = Params
+
+    module Response = struct
+      type t = State.t Run_result.t [@@deriving yojson]
+    end
+
+    let handler =
+      HType.FullDoc
+        { uri_fn = (fun { Params.uri ; _ } -> uri)
+        ; handler =
+          (fun ~token:_ ~doc { hash ; Params.uri = _ } ->
+            Agent.get_root_state ?hash ~doc ())
+        }
+  end
+end
+
 (* start RPC *)
 module Start = struct
   let method_ = "petanque/start"

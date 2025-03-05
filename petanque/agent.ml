@@ -180,6 +180,11 @@ let get_state ~doc ?opts ~pos () =
   let hash = opts.hash in
   Ok (analyze_after_run ~hash state)
 
+let get_root_state ?hash ~doc () =
+  let hash = Option.default true hash in
+  let state = doc.Fleche.Doc.root in
+  Ok (analyze_after_run ~hash state)
+
 let start ~token ~doc ?opts ?pre_commands ~thm () =
   let open Coq.Compat.Result.O in
   let* node = find_thm ~doc ~thm in

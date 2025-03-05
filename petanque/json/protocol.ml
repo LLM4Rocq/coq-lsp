@@ -48,9 +48,9 @@ module Request = struct
   end
 end
 
-(* get_state RPC *)
-module GetState = struct
-  let method_ = "petanque/get_state"
+(* get_state_at_pos RPC *)
+module GetStateAtPos = struct
+  let method_ = "petanque/get_state_at_pos"
 
   module Params = struct
     type t =
@@ -78,7 +78,7 @@ module GetState = struct
         { uri_fn = (fun { Params.uri ; _ } -> uri)
         ; handler =
           (fun ~token:_ ~doc { Params.uri = _ ; opts ; row ; col } ->
-            Agent.get_state ~doc ?opts ~pos:(row, col) ())
+            Agent.get_state_at_pos ~doc ?opts ~pos:(row, col) ())
         }
   end
 end

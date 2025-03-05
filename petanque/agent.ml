@@ -162,7 +162,7 @@ let default_opts = function
   | None -> { Run_opts.memo = true; hash = true }
   | Some opts -> opts
 
-let get_state ~doc ?opts ~pos () =
+let get_state_at_pos ~doc ?opts ~pos () =
   let pos_of_point pt = (pt.Lang.Point.line, pt.character) in
   let pos_of_range r = (pos_of_point r.Lang.Range.start, pos_of_point r.end_) in
   let state_of_node node =

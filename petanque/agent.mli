@@ -99,8 +99,8 @@ end
     We could imagine a future where [State.t] need to be managed asynchronously,
     then the same approach that we use for [Doc.t] could happen. *)
 
-(** [get_state ~doc ?opts ~pos] return the state at position [pos]. *)
-val get_state :
+(** [get_state_at_pos ~doc ?opts ~pos] return the state at position [pos]. *)
+val get_state_at_pos :
      doc:Fleche.Doc.t
   -> ?opts:Run_opts.t
   -> pos:(int * int)

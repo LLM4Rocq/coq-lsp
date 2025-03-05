@@ -53,8 +53,8 @@ type 'a handle = token:Coq.Limits.Token.t -> Action.t -> 'a
 
 let handle_request ~(do_handle : 'a handle) ~unhandled ~token ~method_ ~params =
   match method_ with
-  | s when String.equal GetState.method_ s ->
-    do_handle ~token (do_request (module GetState) ~params)
+  | s when String.equal GetStateAtPos.method_ s ->
+    do_handle ~token (do_request (module GetStateAtPos) ~params)
   | s when String.equal GetRootState.method_ s ->
     do_handle ~token (do_request (module GetRootState) ~params)
   | s when String.equal Start.method_ s ->

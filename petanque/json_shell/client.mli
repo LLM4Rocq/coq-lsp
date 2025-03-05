@@ -17,7 +17,8 @@ module S (C : Chans) : sig
   val toc :
     TableOfContents.Params.t -> (TableOfContents.Response.t, string) result
 
-  val get_state : GetState.Params.t -> (GetState.Response.t, string) result
+  val get_state_at_pos :
+    GetStateAtPos.Params.t -> (GetStateAtPos.Response.t, string) result
   val get_root_state :
     GetRootState.Params.t -> (GetRootState.Response.t, string) result
   val start : Start.Params.t -> (Start.Response.t, string) result

@@ -78,6 +78,13 @@ module Run_result : sig
     }
 end
 
+module Run_with_feedback_result : sig
+  type 'a t =
+    { state : 'a Run_result.t
+    ; feedbacks : Coq.Message.LocMessage.t list
+    }
+end
+
 (** Protocol notes:
 
     The idea is that the types of the functions here have a direct translation
@@ -148,7 +155,7 @@ val run_with_feedback :
   -> st:State.t
   -> cmd:string
   -> unit
-  -> (State.t Run_result.t * Loc.t Coq.Message.t list) R.t
+  -> (State.t Run_with_feedback_result.t) R.t
 
 (** [goals ~token ~st] return the list of goals for a given [st] *)
 val goals :

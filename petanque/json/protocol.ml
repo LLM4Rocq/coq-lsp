@@ -215,7 +215,7 @@ module RunWithFeedback = struct
   end
 
   module Response = struct
-    type t = int Run_result.t [@@deriving yojson]
+    type t = int Run_with_feedback_result.t [@@deriving yojson]
   end
 
   module Handler = struct
@@ -230,8 +230,7 @@ module RunWithFeedback = struct
     end
 
     module Response = struct
-      type t = (State.t Run_result.t * Coq.Message.LocMessage.t list)
-      [@@deriving yojson]
+      type t = State.t Run_with_feedback_result.t [@@deriving yojson]
     end
 
     let handler =

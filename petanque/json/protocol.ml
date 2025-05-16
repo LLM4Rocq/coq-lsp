@@ -202,7 +202,7 @@ module RunTac = struct
 end
 
 (* run_with_feedback RPC *)
-module RunWithFeedBack = struct
+module RunWithFeedback = struct
   let method_ = "petanque/run_with_feedback"
 
   module Params = struct

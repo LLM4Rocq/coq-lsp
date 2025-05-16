@@ -98,7 +98,7 @@ module S (C : Chans) = struct
     M.call
 
   let run_with_feedback =
-    let module M = Wrap (RunWithFeedBack) (C) in
+    let module M = Wrap (RunWithFeedback) (C) in
     M.call
 
   let goals =

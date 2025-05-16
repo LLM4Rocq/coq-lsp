@@ -22,7 +22,7 @@ module LocMessage = struct
 
   (* Very limited recovering but is not needed. *)
   let of_yojson json : (t, string) result = match json with
-    | `Assoc [(_, `String s); (_, `String m)] ->
+    | `Assoc [("state", `String s); ("message", `String m)] ->
       begin match Lang.Diagnostic.Severity.of_string s with
       | Ok s -> Ok (s, { range = None; quickFix = None; msg = Pp.str m})
       | Error e -> Error e

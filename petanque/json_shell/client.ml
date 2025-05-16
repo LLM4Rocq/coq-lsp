@@ -97,6 +97,10 @@ module S (C : Chans) = struct
     let module M = Wrap (RunTac) (C) in
     M.call
 
+  let run_with_feedback =
+    let module M = Wrap (RunWithFeedBack) (C) in
+    M.call
+
   let goals =
     let module M = Wrap (Goals) (C) in
     M.call

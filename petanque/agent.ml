@@ -212,6 +212,20 @@ let run ~token ?opts ~st ~tac () : (_ Run_result.t, Error.t) Result.t =
   in
   protect_to_result execution
 
+let run_with_feedback ~token ?opts ~st ~cmd ()
+: (_ Run_result.t * _, Error.t) Result.t =
+  let opts = default_opts opts in
+  let memo, hash = (opts.memo, opts.hash) in
+  let execution =
+    let open Coq.Protect.E.O in
+    let+ (st, fb) =
+      Fleche.Doc.run_with_feedback ~token ~memo ?loc:None ~st cmd
+    in
+    let st = analyze_after_run ~hash st in
+    (st, fb)
+  in
+  protect_to_result execution
+
 let goals ~token ~st =
   let f goals =
     let f = Coq.Goals.Reified_goal.map ~f:Pp.string_of_ppcmds in

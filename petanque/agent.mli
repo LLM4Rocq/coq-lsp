@@ -139,6 +139,17 @@ val run :
   -> unit
   -> State.t Run_result.t R.t
 
+(** [run_with_feedback ~token ?memo ~st ~cmd] tries to run [cmd] over state
+    [st], providing some feedback. [memo] (by default [true]) controls whether
+    the command execution will be memoized in Flèche incremental engine. *)
+val run_with_feedback :
+     token:Coq.Limits.Token.t
+  -> ?opts:Run_opts.t
+  -> st:State.t
+  -> cmd:string
+  -> unit
+  -> (State.t Run_result.t * Loc.t Coq.Message.t list) R.t
+
 (** [goals ~token ~st] return the list of goals for a given [st] *)
 val goals :
      token:Coq.Limits.Token.t

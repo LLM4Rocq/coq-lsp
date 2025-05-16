@@ -23,6 +23,8 @@ module S (C : Chans) : sig
     GetRootState.Params.t -> (GetRootState.Response.t, string) result
   val start : Start.Params.t -> (Start.Response.t, string) result
   val run : RunTac.Params.t -> (RunTac.Response.t, string) result
+  val run_with_feedback :
+    RunWithFeedBack.Params.t -> (RunWithFeedBack.Response.t, string) result
   val goals : Goals.Params.t -> (Goals.Response.t, string) result
   val premises : Premises.Params.t -> (Premises.Response.t, string) result
 
